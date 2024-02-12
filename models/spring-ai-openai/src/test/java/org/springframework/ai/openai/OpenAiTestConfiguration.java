@@ -36,6 +36,11 @@ public class OpenAiTestConfiguration {
 	}
 
 	@Bean
+	public OpenAiSpeechClient openAiSpeechClient(OpenAiApi api) {
+		return new OpenAiSpeechClient(api);
+	}
+
+	@Bean
 	public OpenAiImageClient openAiImageClient(OpenAiImageApi imageApi) {
 		OpenAiImageClient openAiImageClient = new OpenAiImageClient(imageApi);
 		// openAiImageClient.setModel("foobar");

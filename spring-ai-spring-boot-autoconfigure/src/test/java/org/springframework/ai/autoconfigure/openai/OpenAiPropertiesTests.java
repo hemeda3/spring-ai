@@ -348,4 +348,35 @@ public class OpenAiPropertiesTests {
 			});
 	}
 
+	@Test
+	public void speechOptionsTest() {
+		new ApplicationContextRunner().withPropertyValues(
+						// @formatter:off
+						"spring.ai.openai.api-key=API_KEY",
+						"spring.ai.openai.base-url=TEST_BASE_URL",
+
+						"spring.ai.openai.speech.options.model=the-model",
+						"spring.ai.openai.speech.options.voice=the-voice",
+						"spring.ai.openai.speech.options.input=the-input",
+						"spring.ai.openai.speech.options.responseFormat=theformat",
+						"spring.ai.openai.speech.options.speed=1.0"
+				)
+				// @formatter:on
+				.withConfiguration(AutoConfigurations.of(OpenAiAutoConfiguration.class))
+				.run(context -> {
+					var transcriptionProperties = context.getBean(OpenAiSpeechProperties.class);
+					var connectionProperties = context.getBean(OpenAiConnectionProperties.class);
+					var embeddingProperties = context.getBean(OpenAiEmbeddingProperties.class);
+
+					assertThat(connectionProperties.getBaseUrl()).isEqualTo("TEST_BASE_URL");
+					assertThat(connectionProperties.getApiKey()).isEqualTo("API_KEY");
+
+					assertThat(embeddingProperties.getOptions().getModel()).isEqualTo("text-embedding-ada-002");
+
+					assertThat(transcriptionProperties.getOptions().getModel()).isEqualTo("the-model");
+					assertThat(transcriptionProperties.getOptions().getInput()).isEqualTo("the-input");
+					assertThat(transcriptionProperties.getOptions().getSpeed()).isEqualTo("the speed");
+				});
+	}
+
 }

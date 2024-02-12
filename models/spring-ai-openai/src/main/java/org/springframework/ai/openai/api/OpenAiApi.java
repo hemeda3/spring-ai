@@ -389,6 +389,58 @@ public class OpenAiApi {
 		}
 	}
 
+
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	public record SpeechRequest(
+			@JsonProperty("model") String model,
+			@JsonProperty("input") String input,
+			@JsonProperty("voice") String voice,
+			@JsonProperty("response_format") String responseFormat,
+			@JsonProperty("speed") Double speed) {
+
+
+		public SpeechRequest(String model, String input, String voice) {
+			this(model, input, voice, "mp3", 1.0); // Defaults to "mp3" format and "1.0" speed
+		}
+
+		public SpeechRequest() {
+			this(null, null, null, "mp3", 1.0);
+		}
+
+		public SpeechRequest(String model, String input, String voice, String responseFormat, Double speed) {
+			this.model = model;
+			this.input = input;
+			this.voice = voice;
+			this.responseFormat = responseFormat;
+			this.speed = speed;
+		}
+	}
+
+	@JsonInclude(Include.NON_NULL)
+	public record SpeechResponse(
+			@JsonProperty("audio") byte[] audio) {
+	}
+	/**
+	 * Creates a model response for the given text-to-speech request.
+	 *
+	 * @param speechRequest The text-to-speech request.
+	 * @return Entity response with the generated speech as a body and HTTP status code and headers.
+	 */
+	public ResponseEntity<SpeechResponse> textToSpeechEntityJson(OpenAiApi.SpeechRequest speechRequest) {
+		Assert.notNull(speechRequest, "The request body cannot be null.");
+
+		var responseEntity = this.restClient.post()
+				.uri("/v1/audio/speech")
+				.body(speechRequest)
+				.accept(MediaType.APPLICATION_OCTET_STREAM)
+				.retrieve()
+				.toEntity(byte[].class);
+		HttpHeaders headers = new HttpHeaders();
+		headers.addAll(responseEntity.getHeaders());
+		SpeechResponse speechResponse = new SpeechResponse(responseEntity.getBody());
+		return new ResponseEntity<>(speechResponse, headers, responseEntity.getStatusCode());
+	}
 	/**
 	 * Message comprising the conversation.
 	 *
@@ -493,6 +545,7 @@ public class OpenAiApi {
 		 */
 		@JsonProperty("function_call") FUNCTION_CALL
 	}
+
 
 	/**
 	 * Represents a chat completion response returned by model, based on the provided input.
