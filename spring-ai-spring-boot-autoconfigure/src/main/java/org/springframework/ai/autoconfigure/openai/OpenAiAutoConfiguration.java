@@ -24,8 +24,10 @@ import org.springframework.ai.model.ToolFunctionCallback;
 import org.springframework.ai.openai.OpenAiChatClient;
 import org.springframework.ai.openai.OpenAiEmbeddingClient;
 import org.springframework.ai.openai.OpenAiImageClient;
+import org.springframework.ai.openai.OpenAiSpeechClient;
 import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.ai.openai.api.OpenAiImageApi;
+import org.springframework.ai.openai.api.OpenAiSpeechApi;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -41,7 +43,7 @@ import org.springframework.web.client.RestClient;
 @AutoConfiguration(after = RestClientAutoConfiguration.class)
 @ConditionalOnClass(OpenAiApi.class)
 @EnableConfigurationProperties({ OpenAiConnectionProperties.class, OpenAiChatProperties.class,
-		OpenAiEmbeddingProperties.class, OpenAiImageProperties.class })
+		OpenAiEmbeddingProperties.class, OpenAiImageProperties.class, OpenAiSpeechProperties.class })
 @ImportRuntimeHints(NativeHints.class)
 /**
  * @author Christian Tzolov
@@ -111,6 +113,24 @@ public class OpenAiAutoConfiguration {
 		var openAiImageApi = new OpenAiImageApi(baseUrl, apiKey, restClientBuilder);
 
 		return new OpenAiImageClient(openAiImageApi).withDefaultOptions(imageProperties.getOptions());
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public OpenAiSpeechClient openAiImageClient(OpenAiConnectionProperties commonProperties,
+			OpenAiSpeechProperties speechProperties, RestClient.Builder restClientBuilder) {
+		String apiKey = StringUtils.hasText(speechProperties.getApiKey()) ? speechProperties.getApiKey()
+				: commonProperties.getApiKey();
+
+		String baseUrl = StringUtils.hasText(speechProperties.getBaseUrl()) ? speechProperties.getBaseUrl()
+				: commonProperties.getBaseUrl();
+
+		Assert.hasText(apiKey, OPEN_AI_API_KEY_MUST_BE_SET);
+		Assert.hasText(baseUrl, OPEN_AI_BASE_URL_MUST_BE_SET);
+
+		var openAiSpeechApi = new OpenAiSpeechApi(baseUrl, apiKey, restClientBuilder);
+
+		return new OpenAiSpeechClient(openAiSpeechApi).withDefaultOptions(speechProperties.getOptions());
 	}
 
 }
