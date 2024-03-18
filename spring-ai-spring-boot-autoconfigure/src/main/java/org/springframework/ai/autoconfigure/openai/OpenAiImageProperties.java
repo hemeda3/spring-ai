@@ -15,7 +15,7 @@
  */
 package org.springframework.ai.autoconfigure.openai;
 
-import org.springframework.ai.openai.OpenAiImageOptions;
+import org.springframework.ai.anthropic.AnthropicImageOptions;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
@@ -28,7 +28,7 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 @ConfigurationProperties(OpenAiImageProperties.CONFIG_PREFIX)
 public class OpenAiImageProperties extends OpenAiParentProperties {
 
-	public static final String CONFIG_PREFIX = "spring.ai.openai.image";
+	public static final String CONFIG_PREFIX = "spring.ai.anthropic.image";
 
 	/**
 	 * Enable OpenAI Image client.
@@ -39,13 +39,13 @@ public class OpenAiImageProperties extends OpenAiParentProperties {
 	 * Options for OpenAI Image API.
 	 */
 	@NestedConfigurationProperty
-	private OpenAiImageOptions options = OpenAiImageOptions.builder().build();
+	private AnthropicImageOptions options = AnthropicImageOptions.builder().build();
 
-	public OpenAiImageOptions getOptions() {
+	public AnthropicImageOptions getOptions() {
 		return options;
 	}
 
-	public void setOptions(OpenAiImageOptions options) {
+	public void setOptions(AnthropicImageOptions options) {
 		this.options = options;
 	}
 

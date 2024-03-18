@@ -22,8 +22,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.ai.autoconfigure.openai.OpenAiAutoConfiguration;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.embedding.EmbeddingClient;
-import org.springframework.ai.openai.OpenAiEmbeddingClient;
-import org.springframework.ai.openai.api.OpenAiApi;
+import org.springframework.ai.anthropic.OpenAiEmbeddingClient;
+import org.springframework.ai.anthropic.api.OpenAiApi;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -53,7 +53,7 @@ class MongoDBAtlasVectorStoreIT {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 		.withUserConfiguration(TestApplication.class)
-		.withPropertyValues("spring.ai.openai.apiKey=" + System.getenv("OPENAI_API_KEY"),
+		.withPropertyValues("spring.ai.anthropic.apiKey=" + System.getenv("OPENAI_API_KEY"),
 				String.format("spring.data.mongodb.database=" + "springaisample"),
 				String.format("spring.data.mongodb.uri=" + container.getConnectionString()));
 

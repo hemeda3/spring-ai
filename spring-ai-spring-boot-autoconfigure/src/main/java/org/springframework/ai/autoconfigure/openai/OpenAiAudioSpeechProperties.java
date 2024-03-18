@@ -16,8 +16,6 @@
 
 package org.springframework.ai.autoconfigure.openai;
 
-import org.springframework.ai.openai.OpenAiAudioSpeechOptions;
-import org.springframework.ai.openai.api.OpenAiAudioApi;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
@@ -28,7 +26,7 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 @ConfigurationProperties(OpenAiAudioSpeechProperties.CONFIG_PREFIX)
 public class OpenAiAudioSpeechProperties extends OpenAiParentProperties {
 
-	public static final String CONFIG_PREFIX = "spring.ai.openai.audio.speech";
+	public static final String CONFIG_PREFIX = "spring.ai.anthropic.audio.speech";
 
 	public static final String DEFAULT_SPEECH_MODEL = OpenAiAudioApi.TtsModel.TTS_1.getValue();
 

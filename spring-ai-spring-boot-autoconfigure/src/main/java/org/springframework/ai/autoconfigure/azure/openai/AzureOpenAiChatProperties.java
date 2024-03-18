@@ -22,7 +22,7 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 @ConfigurationProperties(AzureOpenAiChatProperties.CONFIG_PREFIX)
 public class AzureOpenAiChatProperties {
 
-	public static final String CONFIG_PREFIX = "spring.ai.azure.openai.chat";
+	public static final String CONFIG_PREFIX = "spring.ai.azure.anthropic.chat";
 
 	public static final String DEFAULT_DEPLOYMENT_NAME = "gpt-35-turbo";
 

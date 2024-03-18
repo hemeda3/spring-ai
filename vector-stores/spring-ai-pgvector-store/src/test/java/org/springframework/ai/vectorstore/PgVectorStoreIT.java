@@ -36,8 +36,8 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import org.springframework.ai.document.Document;
 import org.springframework.ai.embedding.EmbeddingClient;
-import org.springframework.ai.openai.api.OpenAiApi;
-import org.springframework.ai.openai.OpenAiEmbeddingClient;
+import org.springframework.ai.anthropic.api.OpenAiApi;
+import org.springframework.ai.anthropic.OpenAiEmbeddingClient;
 import org.springframework.ai.vectorstore.PgVectorStore.PgIndexType;
 import org.springframework.ai.vectorstore.filter.FilterExpressionTextParser.FilterExpressionParseException;
 import org.springframework.beans.factory.annotation.Value;

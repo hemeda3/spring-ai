@@ -31,7 +31,7 @@ or to your Gradle `build.gradle` build file:
 [source,groovy]
 ----
 dependencies {
-    implementation 'org.springframework.ai:spring-ai-openai-spring-boot-starter'
+    implementation 'org.springframework.ai:spring-ai-anthropic-spring-boot-starter'
 }
 ----
 
@@ -88,7 +88,7 @@ or to your Gradle `build.gradle` build file:
 [source,groovy]
 ----
 dependencies {
-    implementation 'org.springframework.ai:spring-ai-openai'
+    implementation 'org.springframework.ai:spring-ai-anthropic'
 }
 ----
 

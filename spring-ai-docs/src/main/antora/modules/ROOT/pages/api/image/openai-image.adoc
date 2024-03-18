@@ -33,7 +33,7 @@ or to your Gradle `build.gradle` build file.
 [source,groovy]
 ----
 dependencies {
-    implementation 'org.springframework.ai:spring-ai-openai-spring-boot-starter'
+    implementation 'org.springframework.ai:spring-ai-anthropic-spring-boot-starter'
 }
 ----
 
@@ -96,7 +96,7 @@ The prefix `spring.ai.retry` is used as the property prefix that lets you config
 
 The https://github.com/spring-projects/spring-ai/blob/main/models/spring-ai-openai/src/main/java/org/springframework/ai/openai/OpenAiImageOptions.java[OpenAiImageOptions.java] provides model configurations, such as the model to use, the quality, the size, etc.
 
-On start-up, the default options can be configured with the `OpenAiImageClient(OpenAiImageApi openAiImageApi)` constructor and the `withDefaultOptions(OpenAiImageOptions defaultOptions)` method.  Alternatively, use the `spring.ai.openai.image.options.*` properties described previously.
+On start-up, the default options can be configured with the `OpenAiImageClient(OpenAiImageApi anthropicImageApi)` constructor and the `withDefaultOptions(OpenAiImageOptions defaultOptions)` method.  Alternatively, use the `spring.ai.openai.image.options.*` properties described previously.
 
 At runtime you can override the default options by adding new, request specific, options to the `ImagePrompt` call.
 For example to override the OpenAI specific options such as quality and the number of images to create, use the following code example:

@@ -53,14 +53,14 @@ public class AzureOpenAiAutoConfigurationIT {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().withPropertyValues(
 	// @formatter:off
-			"spring.ai.azure.openai.api-key=" + System.getenv("AZURE_OPENAI_API_KEY"),
-			"spring.ai.azure.openai.endpoint=" + System.getenv("AZURE_OPENAI_ENDPOINT"),
+			"spring.ai.azure.anthropic.api-key=" + System.getenv("AZURE_OPENAI_API_KEY"),
+			"spring.ai.azure.anthropic.endpoint=" + System.getenv("AZURE_OPENAI_ENDPOINT"),
 
-			"spring.ai.azure.openai.chat.options.deployment-name=" + CHAT_MODEL_NAME,
-			"spring.ai.azure.openai.chat.options.temperature=0.8",
-			"spring.ai.azure.openai.chat.options.maxTokens=123",
+			"spring.ai.azure.anthropic.chat.options.deployment-name=" + CHAT_MODEL_NAME,
+			"spring.ai.azure.anthropic.chat.options.temperature=0.8",
+			"spring.ai.azure.anthropic.chat.options.maxTokens=123",
 
-			"spring.ai.azure.openai.embedding.options.deployment-name=" + EMBEDDING_MODEL_NAME
+			"spring.ai.azure.anthropic.embedding.options.deployment-name=" + EMBEDDING_MODEL_NAME
 			// @formatter:on
 	).withConfiguration(AutoConfigurations.of(AzureOpenAiAutoConfiguration.class));
 
@@ -126,7 +126,7 @@ public class AzureOpenAiAutoConfigurationIT {
 	public void chatActivation() {
 
 		// Disable the chat auto-configuration.
-		contextRunner.withPropertyValues("spring.ai.azure.openai.chat.enabled=false").run(context -> {
+		contextRunner.withPropertyValues("spring.ai.azure.anthropic.chat.enabled=false").run(context -> {
 			assertThat(context.getBeansOfType(AzureOpenAiChatClient.class)).isEmpty();
 		});
 
@@ -136,7 +136,7 @@ public class AzureOpenAiAutoConfigurationIT {
 		});
 
 		// Explicitly enable the chat auto-configuration.
-		contextRunner.withPropertyValues("spring.ai.azure.openai.chat.enabled=true").run(context -> {
+		contextRunner.withPropertyValues("spring.ai.azure.anthropic.chat.enabled=true").run(context -> {
 			assertThat(context.getBeansOfType(AzureOpenAiChatClient.class)).isNotEmpty();
 		});
 	}
@@ -145,7 +145,7 @@ public class AzureOpenAiAutoConfigurationIT {
 	public void embeddingActivation() {
 
 		// Disable the embedding auto-configuration.
-		contextRunner.withPropertyValues("spring.ai.azure.openai.embedding.enabled=false").run(context -> {
+		contextRunner.withPropertyValues("spring.ai.azure.anthropic.embedding.enabled=false").run(context -> {
 			assertThat(context.getBeansOfType(AzureOpenAiEmbeddingClient.class)).isEmpty();
 		});
 
@@ -155,7 +155,7 @@ public class AzureOpenAiAutoConfigurationIT {
 		});
 
 		// Explicitly enable the embedding auto-configuration.
-		contextRunner.withPropertyValues("spring.ai.azure.openai.embedding.enabled=true").run(context -> {
+		contextRunner.withPropertyValues("spring.ai.azure.anthropic.embedding.enabled=true").run(context -> {
 			assertThat(context.getBeansOfType(AzureOpenAiEmbeddingClient.class)).isNotEmpty();
 		});
 	}

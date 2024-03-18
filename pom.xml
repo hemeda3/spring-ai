@@ -19,6 +19,7 @@
 		<module>models/spring-ai-postgresml</module>
 		<module>models/spring-ai-bedrock</module>
 		<module>models/spring-ai-azure-openai</module>
+		<module>models/spring-ai-anthropic</module>
 		<module>models/spring-ai-huggingface</module>
 		<module>models/spring-ai-ollama</module>
 		<module>models/spring-ai-openai</module>

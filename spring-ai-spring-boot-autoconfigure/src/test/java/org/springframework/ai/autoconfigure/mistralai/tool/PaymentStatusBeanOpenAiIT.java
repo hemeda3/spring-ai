@@ -31,8 +31,8 @@ import org.springframework.ai.chat.ChatResponse;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.mistralai.api.MistralAiApi;
-import org.springframework.ai.openai.OpenAiChatClient;
-import org.springframework.ai.openai.OpenAiChatOptions;
+import org.springframework.ai.anthropic.AnthropicChatClient;
+import org.springframework.ai.anthropic.AnthropicChatOptions;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.client.RestClientAutoConfiguration;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -43,7 +43,7 @@ import org.springframework.context.annotation.Description;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Same test as {@link PaymentStatusBeanIT.java} but using {@link OpenAiChatClient} for
+ * Same test as {@link PaymentStatusBeanIT.java} but using {@link AnthropicChatClient} for
  * Mistral AI Function Calling implementation.
  *
  * @author Christian Tzolov
@@ -54,8 +54,8 @@ class PaymentStatusBeanOpenAiIT {
 	private final Logger logger = LoggerFactory.getLogger(PaymentStatusBeanIT.class);
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-		.withPropertyValues("spring.ai.openai.apiKey=" + System.getenv("MISTRAL_AI_API_KEY"),
-				"spring.ai.openai.chat.base-url=https://api.mistral.ai")
+		.withPropertyValues("spring.ai.anthropic.apiKey=" + System.getenv("MISTRAL_AI_API_KEY"),
+				"spring.ai.anthropic.chat.base-url=https://api.mistral.ai")
 		.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
 				RestClientAutoConfiguration.class, OpenAiAutoConfiguration.class))
 		.withUserConfiguration(Config.class);
@@ -64,14 +64,14 @@ class PaymentStatusBeanOpenAiIT {
 	void functionCallTest() {
 
 		contextRunner
-			.withPropertyValues("spring.ai.openai.chat.options.model=" + MistralAiApi.ChatModel.SMALL.getValue())
+			.withPropertyValues("spring.ai.anthropic.chat.options.model=" + MistralAiApi.ChatModel.SMALL.getValue())
 			.run(context -> {
 
-				OpenAiChatClient chatClient = context.getBean(OpenAiChatClient.class);
+				AnthropicChatClient chatClient = context.getBean(AnthropicChatClient.class);
 
 				ChatResponse response = chatClient
 					.call(new Prompt(List.of(new UserMessage("What's the status of my transaction with id T1001?")),
-							OpenAiChatOptions.builder()
+							AnthropicChatOptions.builder()
 								.withFunction("retrievePaymentStatus")
 								.withFunction("retrievePaymentDate")
 								.build()));

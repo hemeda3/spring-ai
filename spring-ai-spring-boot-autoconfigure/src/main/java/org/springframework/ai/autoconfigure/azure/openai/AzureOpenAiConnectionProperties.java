@@ -20,7 +20,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(AzureOpenAiConnectionProperties.CONFIG_PREFIX)
 public class AzureOpenAiConnectionProperties {
 
-	public static final String CONFIG_PREFIX = "spring.ai.azure.openai";
+	public static final String CONFIG_PREFIX = "spring.ai.azure.anthropic";
 
 	/**
 	 * Azure OpenAI API key. From the Azure AI OpenAI `Keys and Endpoint` section under

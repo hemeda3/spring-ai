@@ -15,15 +15,13 @@
  */
 package org.springframework.ai.autoconfigure.openai;
 
-import org.springframework.ai.openai.OpenAiAudioTranscriptionOptions;
-import org.springframework.ai.openai.api.OpenAiAudioApi;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 @ConfigurationProperties(OpenAiAudioTranscriptionProperties.CONFIG_PREFIX)
 public class OpenAiAudioTranscriptionProperties extends OpenAiParentProperties {
 
-	public static final String CONFIG_PREFIX = "spring.ai.openai.audio.transcription";
+	public static final String CONFIG_PREFIX = "spring.ai.anthropic.audio.transcription";
 
 	public static final String DEFAULT_TRANSCRIPTION_MODEL = OpenAiAudioApi.WhisperModel.WHISPER_1.getValue();
 

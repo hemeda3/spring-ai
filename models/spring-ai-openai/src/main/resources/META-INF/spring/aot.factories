@@ -1,2 +1,2 @@
 org.springframework.aot.hint.RuntimeHintsRegistrar=\
-	org.springframework.ai.openai.aot.OpenAiRuntimeHints
+	org.springframework.ai.anthropic.aot.OpenAiRuntimeHints

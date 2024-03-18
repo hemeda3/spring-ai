@@ -27,18 +27,16 @@ import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.image.ImagePrompt;
 import org.springframework.ai.image.ImageResponse;
-import org.springframework.ai.openai.OpenAiImageClient;
+import org.springframework.ai.anthropic.AnthropicChatClient;
+import org.springframework.ai.anthropic.AnthropicEmbeddingClient;
+import org.springframework.ai.anthropic.AnthropicImageClient;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import reactor.core.publisher.Flux;
-import org.springframework.ai.openai.OpenAiAudioSpeechClient;
 
 import org.springframework.ai.autoconfigure.retry.SpringAiRetryAutoConfiguration;
 import org.springframework.ai.chat.ChatResponse;
 import org.springframework.ai.embedding.EmbeddingResponse;
-import org.springframework.ai.openai.OpenAiAudioTranscriptionClient;
-import org.springframework.ai.openai.OpenAiChatClient;
-import org.springframework.ai.openai.OpenAiEmbeddingClient;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.client.RestClientAutoConfiguration;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -51,14 +49,14 @@ public class OpenAiAutoConfigurationIT {
 	private static final Log logger = LogFactory.getLog(OpenAiAutoConfigurationIT.class);
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-		.withPropertyValues("spring.ai.openai.apiKey=" + System.getenv("OPENAI_API_KEY"))
+		.withPropertyValues("spring.ai.anthropic.apiKey=" + System.getenv("OPENAI_API_KEY"))
 		.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
 				RestClientAutoConfiguration.class, OpenAiAutoConfiguration.class));
 
 	@Test
 	void generate() {
 		contextRunner.run(context -> {
-			OpenAiChatClient client = context.getBean(OpenAiChatClient.class);
+			AnthropicChatClient client = context.getBean(AnthropicChatClient.class);
 			String response = client.call("Hello");
 			assertThat(response).isNotEmpty();
 			logger.info("Response: " + response);
@@ -79,7 +77,7 @@ public class OpenAiAutoConfigurationIT {
 	@Test
 	void synthesize() {
 		contextRunner.run(context -> {
-			OpenAiAudioSpeechClient client = context.getBean(OpenAiAudioSpeechClient.class);
+			AnthropicAudioSpeechClient client = context.getBean(AnthropicAudioSpeechClient.class);
 			byte[] response = client.call("H");
 			assertThat(response).isNotNull();
 			assertThat(verifyMp3FrameHeader(response))
@@ -105,7 +103,7 @@ public class OpenAiAutoConfigurationIT {
 	@Test
 	void generateStreaming() {
 		contextRunner.run(context -> {
-			OpenAiChatClient client = context.getBean(OpenAiChatClient.class);
+			AnthropicChatClient client = context.getBean(AnthropicChatClient.class);
 			Flux<ChatResponse> responseFlux = client.stream(new Prompt(new UserMessage("Hello")));
 			String response = responseFlux.collectList().block().stream().map(chatResponse -> {
 				return chatResponse.getResults().get(0).getOutput().getContent();
@@ -119,7 +117,7 @@ public class OpenAiAutoConfigurationIT {
 	@Test
 	void embedding() {
 		contextRunner.run(context -> {
-			OpenAiEmbeddingClient embeddingClient = context.getBean(OpenAiEmbeddingClient.class);
+			AnthropicEmbeddingClient embeddingClient = context.getBean(AnthropicEmbeddingClient.class);
 
 			EmbeddingResponse embeddingResponse = embeddingClient
 				.embedForResponse(List.of("Hello World", "World is big and salvation is near"));
@@ -135,8 +133,8 @@ public class OpenAiAutoConfigurationIT {
 
 	@Test
 	void generateImage() {
-		contextRunner.withPropertyValues("spring.ai.openai.image.options.size=1024x1024").run(context -> {
-			OpenAiImageClient client = context.getBean(OpenAiImageClient.class);
+		contextRunner.withPropertyValues("spring.ai.anthropic.image.options.size=1024x1024").run(context -> {
+			AnthropicImageClient client = context.getBean(AnthropicImageClient.class);
 			ImageResponse imageResponse = client.call(new ImagePrompt("forest"));
 			assertThat(imageResponse.getResults()).hasSize(1);
 			assertThat(imageResponse.getResult().getOutput().getUrl()).isNotEmpty();

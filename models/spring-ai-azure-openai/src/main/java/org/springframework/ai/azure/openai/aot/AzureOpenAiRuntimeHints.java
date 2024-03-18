@@ -40,7 +40,7 @@ public class AzureOpenAiRuntimeHints implements RuntimeHintsRegistrar {
 		hints.reflection().registerType(OpenAIClient.class, mcs);
 		hints.reflection().registerType(OpenAIAsyncClient.class, mcs);
 
-		// Register all com.azure.ai.openai.models.* classes
+		// Register all com.azure.ai.anthropic.models.* classes
 		AiRuntimeHints
 			.findClassesInPackage(ChatChoice.class.getPackageName(), (metadataReader, metadataReaderFactory) -> true)
 			.forEach(clazz -> hints.reflection().registerType(clazz, mcs));

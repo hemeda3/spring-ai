@@ -46,15 +46,15 @@ class FunctionCallWithFunctionBeanIT {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().withPropertyValues(
 	// @formatter:off
-			"spring.ai.azure.openai.api-key=" + System.getenv("AZURE_OPENAI_API_KEY"),
-			"spring.ai.azure.openai.endpoint=" + System.getenv("AZURE_OPENAI_ENDPOINT"))
+			"spring.ai.azure.anthropic.api-key=" + System.getenv("AZURE_OPENAI_API_KEY"),
+			"spring.ai.azure.anthropic.endpoint=" + System.getenv("AZURE_OPENAI_ENDPOINT"))
 			// @formatter:onn
 		.withConfiguration(AutoConfigurations.of(AzureOpenAiAutoConfiguration.class))
 		.withUserConfiguration(Config.class);
 
 	@Test
 	void functionCallTest() {
-		contextRunner.withPropertyValues("spring.ai.azure.openai.chat.options.model=gpt-4-0125-preview")
+		contextRunner.withPropertyValues("spring.ai.azure.anthropic.chat.options.model=gpt-4-0125-preview")
 			.run(context -> {
 
 				ChatClient chatClient = context.getBean(AzureOpenAiChatClient.class);

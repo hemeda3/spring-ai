@@ -22,6 +22,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.ai.anthropic.AnthropicChatClient;
+import org.springframework.ai.anthropic.AnthropicChatOptions;
 import reactor.core.publisher.Flux;
 
 import org.springframework.ai.autoconfigure.openai.OpenAiAutoConfiguration;
@@ -33,8 +35,6 @@ import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.model.function.FunctionCallbackWrapper;
 import org.springframework.ai.model.function.FunctionCallback;
-import org.springframework.ai.openai.OpenAiChatClient;
-import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.client.RestClientAutoConfiguration;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -49,21 +49,21 @@ public class FunctionCallbackWrapperIT {
 	private final Logger logger = LoggerFactory.getLogger(FunctionCallbackWrapperIT.class);
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-		.withPropertyValues("spring.ai.openai.apiKey=" + System.getenv("OPENAI_API_KEY"))
+		.withPropertyValues("spring.ai.anthropic.apiKey=" + System.getenv("OPENAI_API_KEY"))
 		.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
 				RestClientAutoConfiguration.class, OpenAiAutoConfiguration.class))
 		.withUserConfiguration(Config.class);
 
 	@Test
 	void functionCallTest() {
-		contextRunner.withPropertyValues("spring.ai.openai.chat.options.model=gpt-4-turbo-preview").run(context -> {
+		contextRunner.withPropertyValues("spring.ai.anthropic.chat.options.model=gpt-4-turbo-preview").run(context -> {
 
-			OpenAiChatClient chatClient = context.getBean(OpenAiChatClient.class);
+			AnthropicChatClient chatClient = context.getBean(AnthropicChatClient.class);
 
 			UserMessage userMessage = new UserMessage("What's the weather like in San Francisco, Tokyo, and Paris?");
 
 			ChatResponse response = chatClient.call(
-					new Prompt(List.of(userMessage), OpenAiChatOptions.builder().withFunction("WeatherInfo").build()));
+					new Prompt(List.of(userMessage), AnthropicChatOptions.builder().withFunction("WeatherInfo").build()));
 
 			logger.info("Response: {}", response);
 
@@ -74,14 +74,14 @@ public class FunctionCallbackWrapperIT {
 
 	@Test
 	void streamFunctionCallTest() {
-		contextRunner.withPropertyValues("spring.ai.openai.chat.options.model=gpt-4-turbo-preview").run(context -> {
+		contextRunner.withPropertyValues("spring.ai.anthropic.chat.options.model=gpt-4-turbo-preview").run(context -> {
 
-			OpenAiChatClient chatClient = context.getBean(OpenAiChatClient.class);
+			AnthropicChatClient chatClient = context.getBean(AnthropicChatClient.class);
 
 			UserMessage userMessage = new UserMessage("What's the weather like in San Francisco, Tokyo, and Paris?");
 
 			Flux<ChatResponse> response = chatClient.stream(
-					new Prompt(List.of(userMessage), OpenAiChatOptions.builder().withFunction("WeatherInfo").build()));
+					new Prompt(List.of(userMessage), AnthropicChatOptions.builder().withFunction("WeatherInfo").build()));
 
 			String content = response.collectList()
 				.block()

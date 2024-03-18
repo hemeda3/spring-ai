@@ -36,9 +36,9 @@ public class AzureOpenAiAutoConfigurationPropertyTests {
 	public void embeddingPropertiesTest() {
 
 		new ApplicationContextRunner()
-			.withPropertyValues("spring.ai.azure.openai.api-key=TEST_API_KEY",
-					"spring.ai.azure.openai.endpoint=TEST_ENDPOINT",
-					"spring.ai.azure.openai.embedding.options.deployment-name=MODEL_XYZ")
+			.withPropertyValues("spring.ai.azure.anthropic.api-key=TEST_API_KEY",
+					"spring.ai.azure.anthropic.endpoint=TEST_ENDPOINT",
+					"spring.ai.azure.anthropic.embedding.options.deployment-name=MODEL_XYZ")
 			.withConfiguration(AutoConfigurations.of(AzureOpenAiAutoConfiguration.class))
 			.run(context -> {
 				var chatProperties = context.getBean(AzureOpenAiEmbeddingProperties.class);
@@ -56,19 +56,19 @@ public class AzureOpenAiAutoConfigurationPropertyTests {
 
 		new ApplicationContextRunner().withPropertyValues(
 		// @formatter:off
-				"spring.ai.azure.openai.api-key=API_KEY",
-				"spring.ai.azure.openai.endpoint=ENDPOINT",
+				"spring.ai.azure.anthropic.api-key=API_KEY",
+				"spring.ai.azure.anthropic.endpoint=ENDPOINT",
 
-				"spring.ai.azure.openai.chat.options.deployment-name=MODEL_XYZ",
-				"spring.ai.azure.openai.chat.options.frequencyPenalty=-1.5",
-				"spring.ai.azure.openai.chat.options.logitBias.myTokenId=-5",
-				"spring.ai.azure.openai.chat.options.maxTokens=123",
-				"spring.ai.azure.openai.chat.options.n=10",
-				"spring.ai.azure.openai.chat.options.presencePenalty=0",
-				"spring.ai.azure.openai.chat.options.stop=boza,koza",
-				"spring.ai.azure.openai.chat.options.temperature=0.55",
-				"spring.ai.azure.openai.chat.options.topP=0.56",
-				"spring.ai.azure.openai.chat.options.user=userXYZ"
+				"spring.ai.azure.anthropic.chat.options.deployment-name=MODEL_XYZ",
+				"spring.ai.azure.anthropic.chat.options.frequencyPenalty=-1.5",
+				"spring.ai.azure.anthropic.chat.options.logitBias.myTokenId=-5",
+				"spring.ai.azure.anthropic.chat.options.maxTokens=123",
+				"spring.ai.azure.anthropic.chat.options.n=10",
+				"spring.ai.azure.anthropic.chat.options.presencePenalty=0",
+				"spring.ai.azure.anthropic.chat.options.stop=boza,koza",
+				"spring.ai.azure.anthropic.chat.options.temperature=0.55",
+				"spring.ai.azure.anthropic.chat.options.topP=0.56",
+				"spring.ai.azure.anthropic.chat.options.user=userXYZ"
 				)
 			// @formatter:on
 			.withConfiguration(AutoConfigurations.of(AzureOpenAiAutoConfiguration.class))

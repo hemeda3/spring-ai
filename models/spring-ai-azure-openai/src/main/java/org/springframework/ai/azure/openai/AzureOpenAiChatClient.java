@@ -106,7 +106,7 @@ public class AzureOpenAiChatClient
 	public AzureOpenAiChatClient(OpenAIClient microsoftOpenAiClient, AzureOpenAiChatOptions options,
 			FunctionCallbackContext functionCallbackContext) {
 		super(functionCallbackContext);
-		Assert.notNull(microsoftOpenAiClient, "com.azure.ai.openai.OpenAIClient must not be null");
+		Assert.notNull(microsoftOpenAiClient, "com.azure.ai.anthropic.OpenAIClient must not be null");
 		Assert.notNull(options, "AzureOpenAiChatOptions must not be null");
 		this.openAIClient = microsoftOpenAiClient;
 		this.defaultOptions = options;

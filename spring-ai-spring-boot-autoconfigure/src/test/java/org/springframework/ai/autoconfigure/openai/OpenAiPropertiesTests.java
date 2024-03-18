@@ -20,13 +20,12 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import org.springframework.ai.autoconfigure.retry.SpringAiRetryAutoConfiguration;
-import org.springframework.ai.openai.OpenAiChatClient;
-import org.springframework.ai.openai.OpenAiEmbeddingClient;
-import org.springframework.ai.openai.OpenAiImageClient;
-import org.springframework.ai.openai.api.OpenAiApi.ChatCompletionRequest.ResponseFormat;
-import org.springframework.ai.openai.api.OpenAiApi.ChatCompletionRequest.ToolChoiceBuilder;
-import org.springframework.ai.openai.api.OpenAiApi.FunctionTool.Type;
-import org.springframework.ai.openai.api.OpenAiAudioApi;
+import org.springframework.ai.anthropic.AnthropicChatClient;
+import org.springframework.ai.anthropic.AnthropicEmbeddingClient;
+import org.springframework.ai.anthropic.AnthropicImageClient;
+import org.springframework.ai.anthropic.api.AnthropicApi.ChatCompletionRequest.ResponseFormat;
+import org.springframework.ai.anthropic.api.AnthropicApi.ChatCompletionRequest.ToolChoiceBuilder;
+import org.springframework.ai.anthropic.api.AnthropicApi.FunctionTool.Type;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.client.RestClientAutoConfiguration;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -48,10 +47,10 @@ public class OpenAiPropertiesTests {
 
 		new ApplicationContextRunner().withPropertyValues(
 		// @formatter:off
-				"spring.ai.openai.base-url=TEST_BASE_URL",
-				"spring.ai.openai.api-key=abc123",
-				"spring.ai.openai.chat.options.model=MODEL_XYZ",
-				"spring.ai.openai.chat.options.temperature=0.55")
+				"spring.ai.anthropic.base-url=TEST_BASE_URL",
+				"spring.ai.anthropic.api-key=abc123",
+				"spring.ai.anthropic.chat.options.model=MODEL_XYZ",
+				"spring.ai.anthropic.chat.options.temperature=0.55")
 				// @formatter:on
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
 					RestClientAutoConfiguration.class, OpenAiAutoConfiguration.class))
@@ -75,10 +74,10 @@ public class OpenAiPropertiesTests {
 
 		new ApplicationContextRunner().withPropertyValues(
 		// @formatter:off
-			"spring.ai.openai.base-url=TEST_BASE_URL",
-			"spring.ai.openai.api-key=abc123",
-			"spring.ai.openai.audio.transcription.options.model=MODEL_XYZ",
-			"spring.ai.openai.audio.transcription.options.temperature=0.55")
+			"spring.ai.anthropic.base-url=TEST_BASE_URL",
+			"spring.ai.anthropic.api-key=abc123",
+			"spring.ai.anthropic.audio.transcription.options.model=MODEL_XYZ",
+			"spring.ai.anthropic.audio.transcription.options.temperature=0.55")
 				// @formatter:on
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
 					RestClientAutoConfiguration.class, OpenAiAutoConfiguration.class))
@@ -102,12 +101,12 @@ public class OpenAiPropertiesTests {
 
 		new ApplicationContextRunner().withPropertyValues(
 		// @formatter:off
-				"spring.ai.openai.base-url=TEST_BASE_URL",
-				"spring.ai.openai.api-key=abc123",
-				"spring.ai.openai.chat.base-url=TEST_BASE_URL2",
-				"spring.ai.openai.chat.api-key=456",
-				"spring.ai.openai.chat.options.model=MODEL_XYZ",
-				"spring.ai.openai.chat.options.temperature=0.55")
+				"spring.ai.anthropic.base-url=TEST_BASE_URL",
+				"spring.ai.anthropic.api-key=abc123",
+				"spring.ai.anthropic.chat.base-url=TEST_BASE_URL2",
+				"spring.ai.anthropic.chat.api-key=456",
+				"spring.ai.anthropic.chat.options.model=MODEL_XYZ",
+				"spring.ai.anthropic.chat.options.temperature=0.55")
 				// @formatter:on
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
 					RestClientAutoConfiguration.class, OpenAiAutoConfiguration.class))
@@ -131,12 +130,12 @@ public class OpenAiPropertiesTests {
 
 		new ApplicationContextRunner().withPropertyValues(
 		// @formatter:off
-						"spring.ai.openai.base-url=TEST_BASE_URL",
-						"spring.ai.openai.api-key=abc123",
-						"spring.ai.openai.audio.transcription.base-url=TEST_BASE_URL2",
-						"spring.ai.openai.audio.transcription.api-key=456",
-						"spring.ai.openai.audio.transcription.options.model=MODEL_XYZ",
-						"spring.ai.openai.audio.transcription.options.temperature=0.55")
+						"spring.ai.anthropic.base-url=TEST_BASE_URL",
+						"spring.ai.anthropic.api-key=abc123",
+						"spring.ai.anthropic.audio.transcription.base-url=TEST_BASE_URL2",
+						"spring.ai.anthropic.audio.transcription.api-key=456",
+						"spring.ai.anthropic.audio.transcription.options.model=MODEL_XYZ",
+						"spring.ai.anthropic.audio.transcription.options.temperature=0.55")
 				// @formatter:on
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
 					RestClientAutoConfiguration.class, OpenAiAutoConfiguration.class))
@@ -160,12 +159,12 @@ public class OpenAiPropertiesTests {
 
 		new ApplicationContextRunner().withPropertyValues(
 		// @formatter:off
-						"spring.ai.openai.base-url=TEST_BASE_URL",
-						"spring.ai.openai.api-key=abc123",
-						"spring.ai.openai.audio.speech.options.model=TTS_1",
-						"spring.ai.openai.audio.speech.options.voice=alloy",
-						"spring.ai.openai.audio.speech.options.response-format=mp3",
-						"spring.ai.openai.audio.speech.options.speed=0.75")
+						"spring.ai.anthropic.base-url=TEST_BASE_URL",
+						"spring.ai.anthropic.api-key=abc123",
+						"spring.ai.anthropic.audio.speech.options.model=TTS_1",
+						"spring.ai.anthropic.audio.speech.options.voice=alloy",
+						"spring.ai.anthropic.audio.speech.options.response-format=mp3",
+						"spring.ai.anthropic.audio.speech.options.speed=0.75")
 				// @formatter:on
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
 					RestClientAutoConfiguration.class, OpenAiAutoConfiguration.class))
@@ -192,12 +191,12 @@ public class OpenAiPropertiesTests {
 	public void speechPropertiesTest() {
 		new ApplicationContextRunner().withPropertyValues(
 		// @formatter:off
-						"spring.ai.openai.base-url=TEST_BASE_URL",
-						"spring.ai.openai.api-key=abc123",
-						"spring.ai.openai.audio.speech.options.model=TTS_1",
-						"spring.ai.openai.audio.speech.options.voice=alloy",
-						"spring.ai.openai.audio.speech.options.response-format=mp3",
-						"spring.ai.openai.audio.speech.options.speed=0.75")
+						"spring.ai.anthropic.base-url=TEST_BASE_URL",
+						"spring.ai.anthropic.api-key=abc123",
+						"spring.ai.anthropic.audio.speech.options.model=TTS_1",
+						"spring.ai.anthropic.audio.speech.options.voice=alloy",
+						"spring.ai.anthropic.audio.speech.options.response-format=mp3",
+						"spring.ai.anthropic.audio.speech.options.speed=0.75")
 				// @formatter:on
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
 					RestClientAutoConfiguration.class, OpenAiAutoConfiguration.class))
@@ -221,14 +220,14 @@ public class OpenAiPropertiesTests {
 	public void speechOverrideConnectionPropertiesTest() {
 		new ApplicationContextRunner().withPropertyValues(
 		// @formatter:off
-						"spring.ai.openai.base-url=TEST_BASE_URL",
-						"spring.ai.openai.api-key=abc123",
-						"spring.ai.openai.audio.speech.base-url=TEST_BASE_URL2",
-						"spring.ai.openai.audio.speech.api-key=456",
-						"spring.ai.openai.audio.speech.options.model=TTS_2",
-						"spring.ai.openai.audio.speech.options.voice=echo",
-						"spring.ai.openai.audio.speech.options.response-format=opus",
-						"spring.ai.openai.audio.speech.options.speed=0.5")
+						"spring.ai.anthropic.base-url=TEST_BASE_URL",
+						"spring.ai.anthropic.api-key=abc123",
+						"spring.ai.anthropic.audio.speech.base-url=TEST_BASE_URL2",
+						"spring.ai.anthropic.audio.speech.api-key=456",
+						"spring.ai.anthropic.audio.speech.options.model=TTS_2",
+						"spring.ai.anthropic.audio.speech.options.voice=echo",
+						"spring.ai.anthropic.audio.speech.options.response-format=opus",
+						"spring.ai.anthropic.audio.speech.options.speed=0.5")
 				// @formatter:on
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
 					RestClientAutoConfiguration.class, OpenAiAutoConfiguration.class))
@@ -255,9 +254,9 @@ public class OpenAiPropertiesTests {
 
 		new ApplicationContextRunner().withPropertyValues(
 		// @formatter:off
-				"spring.ai.openai.base-url=TEST_BASE_URL",
-				"spring.ai.openai.api-key=abc123",
-				"spring.ai.openai.embedding.options.model=MODEL_XYZ")
+				"spring.ai.anthropic.base-url=TEST_BASE_URL",
+				"spring.ai.anthropic.api-key=abc123",
+				"spring.ai.anthropic.embedding.options.model=MODEL_XYZ")
 				// @formatter:on
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
 					RestClientAutoConfiguration.class, OpenAiAutoConfiguration.class))
@@ -280,11 +279,11 @@ public class OpenAiPropertiesTests {
 
 		new ApplicationContextRunner().withPropertyValues(
 		// @formatter:off
-				"spring.ai.openai.base-url=TEST_BASE_URL",
-				"spring.ai.openai.api-key=abc123",
-				"spring.ai.openai.embedding.base-url=TEST_BASE_URL2",
-				"spring.ai.openai.embedding.api-key=456",
-				"spring.ai.openai.embedding.options.model=MODEL_XYZ")
+				"spring.ai.anthropic.base-url=TEST_BASE_URL",
+				"spring.ai.anthropic.api-key=abc123",
+				"spring.ai.anthropic.embedding.base-url=TEST_BASE_URL2",
+				"spring.ai.anthropic.embedding.api-key=456",
+				"spring.ai.anthropic.embedding.options.model=MODEL_XYZ")
 				// @formatter:on
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
 					RestClientAutoConfiguration.class, OpenAiAutoConfiguration.class))
@@ -306,10 +305,10 @@ public class OpenAiPropertiesTests {
 	public void imageProperties() {
 		new ApplicationContextRunner().withPropertyValues(
 		// @formatter:off
-						"spring.ai.openai.base-url=TEST_BASE_URL",
-						"spring.ai.openai.api-key=abc123",
-						"spring.ai.openai.image.options.model=MODEL_XYZ",
-						"spring.ai.openai.image.options.n=3")
+						"spring.ai.anthropic.base-url=TEST_BASE_URL",
+						"spring.ai.anthropic.api-key=abc123",
+						"spring.ai.anthropic.image.options.model=MODEL_XYZ",
+						"spring.ai.anthropic.image.options.n=3")
 				// @formatter:on
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
 					RestClientAutoConfiguration.class, OpenAiAutoConfiguration.class))
@@ -332,12 +331,12 @@ public class OpenAiPropertiesTests {
 	public void imageOverrideConnectionProperties() {
 		new ApplicationContextRunner().withPropertyValues(
 		// @formatter:off
-						"spring.ai.openai.base-url=TEST_BASE_URL",
-						"spring.ai.openai.api-key=abc123",
-						"spring.ai.openai.image.base-url=TEST_BASE_URL2",
-						"spring.ai.openai.image.api-key=456",
-						"spring.ai.openai.image.options.model=MODEL_XYZ",
-						"spring.ai.openai.image.options.n=3")
+						"spring.ai.anthropic.base-url=TEST_BASE_URL",
+						"spring.ai.anthropic.api-key=abc123",
+						"spring.ai.anthropic.image.base-url=TEST_BASE_URL2",
+						"spring.ai.anthropic.image.api-key=456",
+						"spring.ai.anthropic.image.options.model=MODEL_XYZ",
+						"spring.ai.anthropic.image.options.n=3")
 				// @formatter:on
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
 					RestClientAutoConfiguration.class, OpenAiAutoConfiguration.class))
@@ -361,27 +360,27 @@ public class OpenAiPropertiesTests {
 
 		new ApplicationContextRunner().withPropertyValues(
 		// @formatter:off
-				"spring.ai.openai.api-key=API_KEY",
-				"spring.ai.openai.base-url=TEST_BASE_URL",
+				"spring.ai.anthropic.api-key=API_KEY",
+				"spring.ai.anthropic.base-url=TEST_BASE_URL",
 
-				"spring.ai.openai.chat.options.model=MODEL_XYZ",
-				"spring.ai.openai.chat.options.frequencyPenalty=-1.5",
-				"spring.ai.openai.chat.options.logitBias.myTokenId=-5",
-				"spring.ai.openai.chat.options.maxTokens=123",
-				"spring.ai.openai.chat.options.n=10",
-				"spring.ai.openai.chat.options.presencePenalty=0",
-				"spring.ai.openai.chat.options.responseFormat.type=json",
-				"spring.ai.openai.chat.options.seed=66",
-				"spring.ai.openai.chat.options.stop=boza,koza",
-				"spring.ai.openai.chat.options.temperature=0.55",
-				"spring.ai.openai.chat.options.topP=0.56",
+				"spring.ai.anthropic.chat.options.model=MODEL_XYZ",
+				"spring.ai.anthropic.chat.options.frequencyPenalty=-1.5",
+				"spring.ai.anthropic.chat.options.logitBias.myTokenId=-5",
+				"spring.ai.anthropic.chat.options.maxTokens=123",
+				"spring.ai.anthropic.chat.options.n=10",
+				"spring.ai.anthropic.chat.options.presencePenalty=0",
+				"spring.ai.anthropic.chat.options.responseFormat.type=json",
+				"spring.ai.anthropic.chat.options.seed=66",
+				"spring.ai.anthropic.chat.options.stop=boza,koza",
+				"spring.ai.anthropic.chat.options.temperature=0.55",
+				"spring.ai.anthropic.chat.options.topP=0.56",
 
-				// "spring.ai.openai.chat.options.toolChoice.functionName=toolChoiceFunctionName",
-				"spring.ai.openai.chat.options.toolChoice=" + ToolChoiceBuilder.FUNCTION("toolChoiceFunctionName"),
+				// "spring.ai.anthropic.chat.options.toolChoice.functionName=toolChoiceFunctionName",
+				"spring.ai.anthropic.chat.options.toolChoice=" + ToolChoiceBuilder.FUNCTION("toolChoiceFunctionName"),
 
-				"spring.ai.openai.chat.options.tools[0].function.name=myFunction1",
-				"spring.ai.openai.chat.options.tools[0].function.description=function description",
-				"spring.ai.openai.chat.options.tools[0].function.jsonSchema=" + """
+				"spring.ai.anthropic.chat.options.tools[0].function.name=myFunction1",
+				"spring.ai.anthropic.chat.options.tools[0].function.description=function description",
+				"spring.ai.anthropic.chat.options.tools[0].function.jsonSchema=" + """
 					{
 						"type": "object",
 						"properties": {
@@ -405,7 +404,7 @@ public class OpenAiPropertiesTests {
 						"required": ["location", "lat", "lon", "unit"]
 					}
 					""",
-					"spring.ai.openai.chat.options.user=userXYZ"
+					"spring.ai.anthropic.chat.options.user=userXYZ"
 				)
 			// @formatter:on
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
@@ -452,14 +451,14 @@ public class OpenAiPropertiesTests {
 
 		new ApplicationContextRunner().withPropertyValues(
 		// @formatter:off
-						"spring.ai.openai.api-key=API_KEY",
-						"spring.ai.openai.base-url=TEST_BASE_URL",
+						"spring.ai.anthropic.api-key=API_KEY",
+						"spring.ai.anthropic.base-url=TEST_BASE_URL",
 
-						"spring.ai.openai.audio.transcription.options.model=MODEL_XYZ",
-						"spring.ai.openai.audio.transcription.options.language=en",
-						"spring.ai.openai.audio.transcription.options.prompt=Er, yes, I think so",
-						"spring.ai.openai.audio.transcription.options.responseFormat=JSON",
-						"spring.ai.openai.audio.transcription.options.temperature=0.55"
+						"spring.ai.anthropic.audio.transcription.options.model=MODEL_XYZ",
+						"spring.ai.anthropic.audio.transcription.options.language=en",
+						"spring.ai.anthropic.audio.transcription.options.prompt=Er, yes, I think so",
+						"spring.ai.anthropic.audio.transcription.options.responseFormat=JSON",
+						"spring.ai.anthropic.audio.transcription.options.temperature=0.55"
 				)
 				// @formatter:on
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
@@ -488,12 +487,12 @@ public class OpenAiPropertiesTests {
 
 		new ApplicationContextRunner().withPropertyValues(
 		// @formatter:off
-				"spring.ai.openai.api-key=API_KEY",
-				"spring.ai.openai.base-url=TEST_BASE_URL",
+				"spring.ai.anthropic.api-key=API_KEY",
+				"spring.ai.anthropic.base-url=TEST_BASE_URL",
 
-				"spring.ai.openai.embedding.options.model=MODEL_XYZ",
-				"spring.ai.openai.embedding.options.encodingFormat=MyEncodingFormat",
-				"spring.ai.openai.embedding.options.user=userXYZ"
+				"spring.ai.anthropic.embedding.options.model=MODEL_XYZ",
+				"spring.ai.anthropic.embedding.options.encodingFormat=MyEncodingFormat",
+				"spring.ai.anthropic.embedding.options.user=userXYZ"
 				)
 			// @formatter:on
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
@@ -515,18 +514,18 @@ public class OpenAiPropertiesTests {
 	public void imageOptionsTest() {
 		new ApplicationContextRunner().withPropertyValues(
 		// @formatter:off
-						"spring.ai.openai.api-key=API_KEY",
-						"spring.ai.openai.base-url=TEST_BASE_URL",
+						"spring.ai.anthropic.api-key=API_KEY",
+						"spring.ai.anthropic.base-url=TEST_BASE_URL",
 
-						"spring.ai.openai.image.options.n=3",
-						"spring.ai.openai.image.options.model=MODEL_XYZ",
-						"spring.ai.openai.image.options.quality=hd",
-						"spring.ai.openai.image.options.response_format=url",
-						"spring.ai.openai.image.options.size=1024x1024",
-						"spring.ai.openai.image.options.width=1024",
-						"spring.ai.openai.image.options.height=1024",
-						"spring.ai.openai.image.options.style=vivid",
-						"spring.ai.openai.image.options.user=userXYZ"
+						"spring.ai.anthropic.image.options.n=3",
+						"spring.ai.anthropic.image.options.model=MODEL_XYZ",
+						"spring.ai.anthropic.image.options.quality=hd",
+						"spring.ai.anthropic.image.options.response_format=url",
+						"spring.ai.anthropic.image.options.size=1024x1024",
+						"spring.ai.anthropic.image.options.width=1024",
+						"spring.ai.anthropic.image.options.height=1024",
+						"spring.ai.anthropic.image.options.style=vivid",
+						"spring.ai.anthropic.image.options.user=userXYZ"
 				)
 				// @formatter:on
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
@@ -554,64 +553,64 @@ public class OpenAiPropertiesTests {
 	void embeddingActivation() {
 
 		new ApplicationContextRunner()
-			.withPropertyValues("spring.ai.openai.api-key=API_KEY", "spring.ai.openai.base-url=TEST_BASE_URL",
-					"spring.ai.openai.embedding.enabled=false")
+			.withPropertyValues("spring.ai.anthropic.api-key=API_KEY", "spring.ai.anthropic.base-url=TEST_BASE_URL",
+					"spring.ai.anthropic.embedding.enabled=false")
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
 					RestClientAutoConfiguration.class, OpenAiAutoConfiguration.class))
 			.run(context -> {
 				assertThat(context.getBeansOfType(OpenAiEmbeddingProperties.class)).isNotEmpty();
-				assertThat(context.getBeansOfType(OpenAiEmbeddingClient.class)).isEmpty();
+				assertThat(context.getBeansOfType(AnthropicEmbeddingClient.class)).isEmpty();
 			});
 
 		new ApplicationContextRunner()
-			.withPropertyValues("spring.ai.openai.api-key=API_KEY", "spring.ai.openai.base-url=TEST_BASE_URL")
+			.withPropertyValues("spring.ai.anthropic.api-key=API_KEY", "spring.ai.anthropic.base-url=TEST_BASE_URL")
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
 					RestClientAutoConfiguration.class, OpenAiAutoConfiguration.class))
 			.run(context -> {
 				assertThat(context.getBeansOfType(OpenAiEmbeddingProperties.class)).isNotEmpty();
-				assertThat(context.getBeansOfType(OpenAiEmbeddingClient.class)).isNotEmpty();
+				assertThat(context.getBeansOfType(AnthropicEmbeddingClient.class)).isNotEmpty();
 			});
 
 		new ApplicationContextRunner()
-			.withPropertyValues("spring.ai.openai.api-key=API_KEY", "spring.ai.openai.base-url=TEST_BASE_URL",
-					"spring.ai.openai.embedding.enabled=true")
+			.withPropertyValues("spring.ai.anthropic.api-key=API_KEY", "spring.ai.anthropic.base-url=TEST_BASE_URL",
+					"spring.ai.anthropic.embedding.enabled=true")
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
 					RestClientAutoConfiguration.class, OpenAiAutoConfiguration.class))
 			.run(context -> {
 				assertThat(context.getBeansOfType(OpenAiEmbeddingProperties.class)).isNotEmpty();
-				assertThat(context.getBeansOfType(OpenAiEmbeddingClient.class)).isNotEmpty();
+				assertThat(context.getBeansOfType(AnthropicEmbeddingClient.class)).isNotEmpty();
 			});
 	}
 
 	@Test
 	void chatActivation() {
 		new ApplicationContextRunner()
-			.withPropertyValues("spring.ai.openai.api-key=API_KEY", "spring.ai.openai.base-url=TEST_BASE_URL",
-					"spring.ai.openai.chat.enabled=false")
+			.withPropertyValues("spring.ai.anthropic.api-key=API_KEY", "spring.ai.anthropic.base-url=TEST_BASE_URL",
+					"spring.ai.anthropic.chat.enabled=false")
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
 					RestClientAutoConfiguration.class, OpenAiAutoConfiguration.class))
 			.run(context -> {
 				assertThat(context.getBeansOfType(OpenAiChatProperties.class)).isNotEmpty();
-				assertThat(context.getBeansOfType(OpenAiChatClient.class)).isEmpty();
+				assertThat(context.getBeansOfType(AnthropicChatClient.class)).isEmpty();
 			});
 
 		new ApplicationContextRunner()
-			.withPropertyValues("spring.ai.openai.api-key=API_KEY", "spring.ai.openai.base-url=TEST_BASE_URL")
+			.withPropertyValues("spring.ai.anthropic.api-key=API_KEY", "spring.ai.anthropic.base-url=TEST_BASE_URL")
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
 					RestClientAutoConfiguration.class, OpenAiAutoConfiguration.class))
 			.run(context -> {
 				assertThat(context.getBeansOfType(OpenAiChatProperties.class)).isNotEmpty();
-				assertThat(context.getBeansOfType(OpenAiChatClient.class)).isNotEmpty();
+				assertThat(context.getBeansOfType(AnthropicChatClient.class)).isNotEmpty();
 			});
 
 		new ApplicationContextRunner()
-			.withPropertyValues("spring.ai.openai.api-key=API_KEY", "spring.ai.openai.base-url=TEST_BASE_URL",
-					"spring.ai.openai.chat.enabled=true")
+			.withPropertyValues("spring.ai.anthropic.api-key=API_KEY", "spring.ai.anthropic.base-url=TEST_BASE_URL",
+					"spring.ai.anthropic.chat.enabled=true")
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
 					RestClientAutoConfiguration.class, OpenAiAutoConfiguration.class))
 			.run(context -> {
 				assertThat(context.getBeansOfType(OpenAiChatProperties.class)).isNotEmpty();
-				assertThat(context.getBeansOfType(OpenAiChatClient.class)).isNotEmpty();
+				assertThat(context.getBeansOfType(AnthropicChatClient.class)).isNotEmpty();
 			});
 
 	}
@@ -619,32 +618,32 @@ public class OpenAiPropertiesTests {
 	@Test
 	void imageActivation() {
 		new ApplicationContextRunner()
-			.withPropertyValues("spring.ai.openai.api-key=API_KEY", "spring.ai.openai.base-url=TEST_BASE_URL",
-					"spring.ai.openai.image.enabled=false")
+			.withPropertyValues("spring.ai.anthropic.api-key=API_KEY", "spring.ai.anthropic.base-url=TEST_BASE_URL",
+					"spring.ai.anthropic.image.enabled=false")
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
 					RestClientAutoConfiguration.class, OpenAiAutoConfiguration.class))
 			.run(context -> {
 				assertThat(context.getBeansOfType(OpenAiImageProperties.class)).isNotEmpty();
-				assertThat(context.getBeansOfType(OpenAiImageClient.class)).isEmpty();
+				assertThat(context.getBeansOfType(AnthropicImageClient.class)).isEmpty();
 			});
 
 		new ApplicationContextRunner()
-			.withPropertyValues("spring.ai.openai.api-key=API_KEY", "spring.ai.openai.base-url=TEST_BASE_URL")
+			.withPropertyValues("spring.ai.anthropic.api-key=API_KEY", "spring.ai.anthropic.base-url=TEST_BASE_URL")
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
 					RestClientAutoConfiguration.class, OpenAiAutoConfiguration.class))
 			.run(context -> {
 				assertThat(context.getBeansOfType(OpenAiImageProperties.class)).isNotEmpty();
-				assertThat(context.getBeansOfType(OpenAiImageClient.class)).isNotEmpty();
+				assertThat(context.getBeansOfType(AnthropicImageClient.class)).isNotEmpty();
 			});
 
 		new ApplicationContextRunner()
-			.withPropertyValues("spring.ai.openai.api-key=API_KEY", "spring.ai.openai.base-url=TEST_BASE_URL",
-					"spring.ai.openai.image.enabled=true")
+			.withPropertyValues("spring.ai.anthropic.api-key=API_KEY", "spring.ai.anthropic.base-url=TEST_BASE_URL",
+					"spring.ai.anthropic.image.enabled=true")
 			.withConfiguration(AutoConfigurations.of(SpringAiRetryAutoConfiguration.class,
 					RestClientAutoConfiguration.class, OpenAiAutoConfiguration.class))
 			.run(context -> {
 				assertThat(context.getBeansOfType(OpenAiImageProperties.class)).isNotEmpty();
-				assertThat(context.getBeansOfType(OpenAiImageClient.class)).isNotEmpty();
+				assertThat(context.getBeansOfType(AnthropicImageClient.class)).isNotEmpty();
 			});
 
 	}

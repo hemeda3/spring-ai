@@ -59,7 +59,7 @@ public class AzureOpenAiEmbeddingClient extends AbstractEmbeddingClient {
 
 	public AzureOpenAiEmbeddingClient(OpenAIClient azureOpenAiClient, MetadataMode metadataMode,
 			AzureOpenAiEmbeddingOptions options) {
-		Assert.notNull(azureOpenAiClient, "com.azure.ai.openai.OpenAIClient must not be null");
+		Assert.notNull(azureOpenAiClient, "com.azure.ai.anthropic.OpenAIClient must not be null");
 		Assert.notNull(metadataMode, "Metadata mode must not be null");
 		Assert.notNull(options, "Options must not be null");
 		this.azureOpenAiClient = azureOpenAiClient;

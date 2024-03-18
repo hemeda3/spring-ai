@@ -201,29 +201,29 @@ The https://github.com/spring-projects/spring-ai/blob/main/spring-ai-spring-boot
 //
 // === Register Functions with Default Options
 //
-// You can programmatically register functions with the `OpenAiChatClient` using the `OpenAiChatOptions#withFunctionCallbacks`:
+// You can programmatically register functions with the `AnthropicChatClient` using the `AnthropicChatOptions#withFunctionCallbacks`:
 //
 // [source,java]
 // ----
 //
-// OpenAiApi openaiApi = new OpenAiApi(apiKey);
+// AnthropicApi openaiApi = new AnthropicApi(apiKey);
 //
-// var defaultOptions = OpenAiChatOptions.builder()
+// var defaultOptions = AnthropicChatOptions.builder()
 // 	.withFunctionCallbacks(List.of(new FunctionCallbackWrapper<>(
 // 		"CurrentWeather", // name
 // 		"Get the weather in location", // function description
 // 		new MockWeatherService()))) // function code
 // 	.build();
 //
-// OpenAiChatClient chatClient = new OpenAiChatClient(openaiApi, defaultOptions);
+// AnthropicChatClient chatClient = new AnthropicChatClient(openaiApi, defaultOptions);
 //
 // UserMessage userMessage = new UserMessage("What's the weather like in San Francisco, Tokyo, and Paris?");
 //
 // ChatResponse response = chatClient.call(new Prompt(List.of(userMessage),
-// 		OpenAiChatOptions.builder().withFunction("CurrentWeather").build())); // Enable the function
+// 		AnthropicChatOptions.builder().withFunction("CurrentWeather").build())); // Enable the function
 // ----
 //
-// NOTE: Functions are registered when OpenAiChatClient is created, by you must enable in the Prompt the functions to be used in the request.
+// NOTE: Functions are registered when AnthropicChatClient is created, by you must enable in the Prompt the functions to be used in the request.
 
 
 == Appendices:

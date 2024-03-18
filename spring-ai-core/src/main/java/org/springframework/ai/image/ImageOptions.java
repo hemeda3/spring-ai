@@ -31,6 +31,6 @@ public interface ImageOptions extends ModelOptions {
 
 	Integer getHeight();
 
-	String getResponseFormat(); // openai - url or base64 : stability ai byte[] or base64
+	String getResponseFormat(); // anthropic - url or base64 : stability ai byte[] or base64
 
 }

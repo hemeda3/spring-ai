@@ -24,7 +24,7 @@ import org.springframework.util.Assert;
 @ConfigurationProperties(AzureOpenAiEmbeddingProperties.CONFIG_PREFIX)
 public class AzureOpenAiEmbeddingProperties {
 
-	public static final String CONFIG_PREFIX = "spring.ai.azure.openai.embedding";
+	public static final String CONFIG_PREFIX = "spring.ai.azure.anthropic.embedding";
 
 	/**
 	 * Enable Azure OpenAI embedding client.

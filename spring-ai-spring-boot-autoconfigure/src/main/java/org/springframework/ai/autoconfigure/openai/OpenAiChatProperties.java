@@ -15,14 +15,14 @@
  */
 package org.springframework.ai.autoconfigure.openai;
 
-import org.springframework.ai.openai.OpenAiChatOptions;
+import org.springframework.ai.anthropic.AnthropicChatOptions;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 @ConfigurationProperties(OpenAiChatProperties.CONFIG_PREFIX)
 public class OpenAiChatProperties extends OpenAiParentProperties {
 
-	public static final String CONFIG_PREFIX = "spring.ai.openai.chat";
+	public static final String CONFIG_PREFIX = "spring.ai.anthropic.chat";
 
 	public static final String DEFAULT_CHAT_MODEL = "gpt-3.5-turbo";
 
@@ -34,16 +34,16 @@ public class OpenAiChatProperties extends OpenAiParentProperties {
 	private boolean enabled = true;
 
 	@NestedConfigurationProperty
-	private OpenAiChatOptions options = OpenAiChatOptions.builder()
+	private AnthropicChatOptions options = AnthropicChatOptions.builder()
 		.withModel(DEFAULT_CHAT_MODEL)
 		.withTemperature(DEFAULT_TEMPERATURE.floatValue())
 		.build();
 
-	public OpenAiChatOptions getOptions() {
+	public AnthropicChatOptions getOptions() {
 		return options;
 	}
 
-	public void setOptions(OpenAiChatOptions options) {
+	public void setOptions(AnthropicChatOptions options) {
 		this.options = options;
 	}
 
